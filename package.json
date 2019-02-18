@@ -1,0 +1,41 @@
+{
+  "name": "collab-backend-prototype",
+  "version": "1.0.0",
+  "description": "A prototype for the backend of new-collab",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "apollo-server": "^2.2.6",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
+    "graphql": "^14.0.2",
+    "graphql-cli": "^2.17.0",
+    "graphql-tools": "^4.0.3",
+    "node-fetch": "^2.2.0",
+    "prisma": "^1.21.0",
+    "prisma-binding": "^2.1.5"
+  },
+  "devDependencies": {
+    "babel-register": "^6.26.0",
+    "chai": "^4.2.0",
+    "graphql-tester": "^0.0.5",
+    "jest": "^23.6.0",
+    "jslint": "^0.12.0",
+    "mocha": "^5.2.0",
+    "sinon": "^6.3.5",
+    "sinon-chai": "^3.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Addyvan/careermp-prototype.git"
+  },
+  "author": "Addison van den Hoeven",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Addyvan/collab-backend-prototype/issues"
+  },
+  "homepage": "https://github.com/Addyvan/collab-backend-prototype#readme"
+}
