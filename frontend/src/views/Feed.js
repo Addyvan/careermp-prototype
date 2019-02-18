@@ -24,10 +24,12 @@ class Feed extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Col lg="12" md="12" className="career-feed">
+          <Col lg="6" md="6" className="career-feed">
             {// The Job Feed component will be feed a list of ids to render out 
             }
-            <JobFeed />
+            <b>Because you viewed</b>
+            <hr />
+            <JobFeed job_ids={["cjs6heaf7001q0885xkzkbtub", "cjsap8ooy001v08859fd5em1p"]} />
           </Col>
         </Row>
       </div>

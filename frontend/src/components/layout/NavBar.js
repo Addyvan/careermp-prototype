@@ -12,8 +12,8 @@ class NavBar extends React.Component {
         {
           (t, { i18n }) => (
             <Row style={{paddingBottom: "5px", margin: "0px"}} className="oadw-nav">
-              <Col lg="3" md="4" sm="12" className="logo" style={{padding: "0px"}}>
-                <h1 style={{margin: "0px"}}>{t("title")} <div style={{fontSize: "9px"}}>({t("tech")})</div></h1>
+              <Col lg="3" md="4" sm="12" className="logo" style={{padding: "0px"}} >
+                <a style={{color: "black", textDecoration: "none"}} href="/"><h1 style={{margin: "0px"}}>{t("title")} <div style={{fontSize: "9px"}}>({t("tech")})</div></h1></a>
               </Col>
               <Col lg="9" md="8" sm="12" style={{padding: "5px"}} >
                 <Row>

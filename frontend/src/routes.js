@@ -6,6 +6,7 @@ import DefaultLayout from "./layouts/Default";
 
 // Route Views
 import Feed from "./views/Feed";
+import Job from "./views/Job";
 
 
 export default [
@@ -19,5 +20,10 @@ export default [
     path: "/feed",
     layout: DefaultLayout,
     component: Feed
+  },
+  {
+    path: "/j/:id",
+    layout: DefaultLayout,
+    component: Job
   }
 ];
