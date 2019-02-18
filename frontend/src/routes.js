@@ -7,6 +7,7 @@ import DefaultLayout from "./layouts/Default";
 // Route Views
 import Feed from "./views/Feed";
 import Job from "./views/Job";
+import JobOwner from "./views/JobOwner";
 
 
 export default [
@@ -25,5 +26,10 @@ export default [
     path: "/j/:id",
     layout: DefaultLayout,
     component: Job
+  },
+  {
+    path: "/jo/:id",
+    layout: DefaultLayout,
+    component: JobOwner
   }
 ];
