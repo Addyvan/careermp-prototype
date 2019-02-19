@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
 
 
-class Home extends Component {
+
+/**
+ * This class is designed to collect 
+ */
+class OnBoarding extends Component {
   componentDidMount() {
-    document.title = 'Home Page';
+    document.title = 'OnBoarding';
   }
 
   render() {
     if (this.props.user) {
-      return(
-        <Redirect to="/userfeed"/>
-      );
+      
     } else {
       return (
         <div>
@@ -22,4 +23,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default OnBoarding;

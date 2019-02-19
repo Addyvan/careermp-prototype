@@ -3,10 +3,11 @@ import DefaultLayout from "./layouts/Default";
 
 // Route Views
 import Home from "./views/Home";
-import Feed from "./views/Feed";
+import UserFeed from "./views/UserFeed";
 import Job from "./views/Job";
 import JobOwner from "./views/JobOwner";
-
+import RecruiterFeed from "./views/RecruiterFeed";
+import OnBoarding from "./views/OnBoarding";
 
 export default [
   {
@@ -16,17 +17,27 @@ export default [
     component: Home
   },
   {
-    path: "/feed",
+    path: "/onboarding",
     layout: DefaultLayout,
-    component: Feed
+    component: OnBoarding
   },
   {
-    path: "/j/:id",
+    path: "/userfeed",
+    layout: DefaultLayout,
+    component: UserFeed
+  },
+  {
+    path: "/recruiterfeed",
+    layout: DefaultLayout,
+    component: RecruiterFeed
+  },
+  {
+    path: "/u/:id",
     layout: DefaultLayout,
     component: Job
   },
   {
-    path: "/jo/:id",
+    path: "/r/:id",
     layout: DefaultLayout,
     component: JobOwner
   }

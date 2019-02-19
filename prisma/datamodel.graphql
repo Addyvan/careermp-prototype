@@ -2,6 +2,7 @@ type User {
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
+  onboardingStage: Int!
   name: String! @unique
   jobPostings: [Job!]! @relation(name: "JobPostingOwner")
   viewed: [Job!]! @relation(name: "ViewedBy")

@@ -24,7 +24,7 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { name: false };
+    this.state = { name: false, user: false };
   }
 
   render() {
@@ -35,7 +35,7 @@ class App extends React.Component {
     } = this.props;
 
     const doLogin = (user) => {
-      this.setState({ name: user.profile.name });
+      this.setState({ name: user.profile.name, user: user });
       onLogin(user);
     };
 
@@ -82,7 +82,13 @@ class App extends React.Component {
                   component={props => {
                     return (
                       <route.layout {...props}>
-                        <route.component {...props} />
+                        {
+                          (this.state.user) ?
+                            <route.component {...props} user={this.state.user} />
+                            :
+                            <route.component {...props} />
+                        }
+                        
                       </route.layout>
                     );
                   }}
@@ -114,7 +120,6 @@ const mapStToProps = ({ showError }) => {
 
 const mapDispToProps = dispatch => ({
   onLogin: profile => {
-    console.log(profile);
     return(dispatch(loginAction(profile)))
   },
   onLogout: () => dispatch(logoutAction()),
