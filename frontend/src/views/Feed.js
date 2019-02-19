@@ -24,12 +24,23 @@ class Feed extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Col lg="6" md="6" className="career-feed">
-            {// The Job Feed component will be feed a list of ids to render out 
-            }
-            <b>Because you viewed</b>
-            <hr />
-            <JobFeed job_ids={["cjs6heaf7001q0885xkzkbtub", "cjsap8ooy001v08859fd5em1p"]} />
+          <Col lg="6" md="6" style={{paddingLeft: "0px"}}>
+            <div className="career-feed" style={{paddingLeft: "15px", paddingRight: "15px", paddingBottom: "15px",  margin: "0px"}}>
+              {// The Job Feed component will be feed a list of ids to render out 
+              }
+              <b>Because you viewed</b>
+              <hr />
+              <JobFeed job_ids={["cjs6heaf7001q0885xkzkbtub", "cjsap8ooy001v08859fd5em1p"]} />
+            </div>
+          </Col>
+          <Col lg="6" md="6" style={{paddingRight: "0px"}}>
+            <div className="career-feed" style={{paddingLeft: "15px", paddingRight: "15px", paddingBottom: "15px",  margin: "0px"}}>
+              {// The Job Feed component will be feed a list of ids to render out 
+              }
+              <b>Based on your career information</b>
+              <hr />
+              <JobFeed job_ids={["cjs6heaf7001q0885xkzkbtub", "cjsap8ooy001v08859fd5em1p"]} />
+            </div>
           </Col>
         </Row>
       </div>

@@ -17,7 +17,9 @@ class NavBar extends React.Component {
               </Col>
               <Col lg="9" md="8" sm="12" style={{padding: "5px"}} >
                 <Row>
-                  <Col lg="11" md="11" sm="10"></Col>
+                  <Col lg="11" md="11" sm="10">
+                    {this.props.children}
+                  </Col>
                   <Col lg="1" md="1" sm="2" >
                     <LanguageToggle i18n={ i18n }/>
                   </Col>

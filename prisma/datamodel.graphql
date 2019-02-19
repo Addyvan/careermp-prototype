@@ -3,14 +3,15 @@ type User {
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String! @unique
+  jobPostings: [Job!]! @relation(name: "JobPostingOwner")
   viewed: [Job!]! @relation(name: "ViewedBy")
-
 }
 
 type Job {
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
+  owner: User! @relation(name: "JobPostingOwner")
   name: String! @unique
   viewedBy: [User!]! @relation(name: "ViewedBy")
 }
