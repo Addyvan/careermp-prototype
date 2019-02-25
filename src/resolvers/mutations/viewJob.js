@@ -1,21 +1,21 @@
 // NOT CREATED YET
-async function followUser(_, args, context, info) {
-
+async function viewJob(_, args, context, info) {
+    console.log(args);
     var updateUserData = {
-        followers: {
+        viewed: {
             connect: {
-                id: args.userToFollow.id
+                id: args.job.id
             }
         }
     };
 
     return await context.prisma.mutation.updateUser({
         where: {
-            id: args.userToBeFollowed.id
+            gcID: args.user.gcID
         },
         data: updateUserData
     });
 
 }
 
-module.exports = followUser;
+module.exports = viewJob;

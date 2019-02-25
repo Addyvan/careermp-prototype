@@ -10,12 +10,21 @@ type BatchPayload {
   count: Long!
 }
 
+enum ClassificationEnum {
+  UNDEFINED
+  EC01
+  EC02
+  EC03
+  EC04
+}
+
 scalar DateTime
 
 type Job {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+  owner: User!
   name: String!
   viewedBy(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
@@ -27,8 +36,14 @@ type JobConnection {
 }
 
 input JobCreateInput {
+  owner: UserCreateOneWithoutJobPostingsInput!
   name: String!
   viewedBy: UserCreateManyWithoutViewedInput
+}
+
+input JobCreateManyWithoutOwnerInput {
+  create: [JobCreateWithoutOwnerInput!]
+  connect: [JobWhereUniqueInput!]
 }
 
 input JobCreateManyWithoutViewedByInput {
@@ -36,7 +51,13 @@ input JobCreateManyWithoutViewedByInput {
   connect: [JobWhereUniqueInput!]
 }
 
+input JobCreateWithoutOwnerInput {
+  name: String!
+  viewedBy: UserCreateManyWithoutViewedInput
+}
+
 input JobCreateWithoutViewedByInput {
+  owner: UserCreateOneWithoutJobPostingsInput!
   name: String!
 }
 
@@ -132,6 +153,7 @@ input JobSubscriptionWhereInput {
 }
 
 input JobUpdateInput {
+  owner: UserUpdateOneRequiredWithoutJobPostingsInput
   name: String
   viewedBy: UserUpdateManyWithoutViewedInput
 }
@@ -142,6 +164,18 @@ input JobUpdateManyDataInput {
 
 input JobUpdateManyMutationInput {
   name: String
+}
+
+input JobUpdateManyWithoutOwnerInput {
+  create: [JobCreateWithoutOwnerInput!]
+  delete: [JobWhereUniqueInput!]
+  connect: [JobWhereUniqueInput!]
+  set: [JobWhereUniqueInput!]
+  disconnect: [JobWhereUniqueInput!]
+  update: [JobUpdateWithWhereUniqueWithoutOwnerInput!]
+  upsert: [JobUpsertWithWhereUniqueWithoutOwnerInput!]
+  deleteMany: [JobScalarWhereInput!]
+  updateMany: [JobUpdateManyWithWhereNestedInput!]
 }
 
 input JobUpdateManyWithoutViewedByInput {
@@ -161,13 +195,30 @@ input JobUpdateManyWithWhereNestedInput {
   data: JobUpdateManyDataInput!
 }
 
-input JobUpdateWithoutViewedByDataInput {
+input JobUpdateWithoutOwnerDataInput {
   name: String
+  viewedBy: UserUpdateManyWithoutViewedInput
+}
+
+input JobUpdateWithoutViewedByDataInput {
+  owner: UserUpdateOneRequiredWithoutJobPostingsInput
+  name: String
+}
+
+input JobUpdateWithWhereUniqueWithoutOwnerInput {
+  where: JobWhereUniqueInput!
+  data: JobUpdateWithoutOwnerDataInput!
 }
 
 input JobUpdateWithWhereUniqueWithoutViewedByInput {
   where: JobWhereUniqueInput!
   data: JobUpdateWithoutViewedByDataInput!
+}
+
+input JobUpsertWithWhereUniqueWithoutOwnerInput {
+  where: JobWhereUniqueInput!
+  update: JobUpdateWithoutOwnerDataInput!
+  create: JobCreateWithoutOwnerInput!
 }
 
 input JobUpsertWithWhereUniqueWithoutViewedByInput {
@@ -207,6 +258,7 @@ input JobWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  owner: UserWhereInput
   name: String
   name_not: String
   name_in: [String!]
@@ -285,9 +337,14 @@ type Subscription {
 
 type User {
   id: ID!
+  gcID: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+  onBoarded: Boolean!
+  classification: ClassificationEnum!
+  type: UserTypeEnum!
   name: String!
+  jobPostings(where: JobWhereInput, orderBy: JobOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Job!]
   viewed(where: JobWhereInput, orderBy: JobOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Job!]
 }
 
@@ -298,7 +355,12 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  gcID: ID!
+  onBoarded: Boolean!
+  classification: ClassificationEnum!
+  type: UserTypeEnum!
   name: String!
+  jobPostings: JobCreateManyWithoutOwnerInput
   viewed: JobCreateManyWithoutViewedByInput
 }
 
@@ -307,8 +369,27 @@ input UserCreateManyWithoutViewedInput {
   connect: [UserWhereUniqueInput!]
 }
 
-input UserCreateWithoutViewedInput {
+input UserCreateOneWithoutJobPostingsInput {
+  create: UserCreateWithoutJobPostingsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutJobPostingsInput {
+  gcID: ID!
+  onBoarded: Boolean!
+  classification: ClassificationEnum!
+  type: UserTypeEnum!
   name: String!
+  viewed: JobCreateManyWithoutViewedByInput
+}
+
+input UserCreateWithoutViewedInput {
+  gcID: ID!
+  onBoarded: Boolean!
+  classification: ClassificationEnum!
+  type: UserTypeEnum!
+  name: String!
+  jobPostings: JobCreateManyWithoutOwnerInput
 }
 
 type UserEdge {
@@ -319,18 +400,30 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
+  gcID_ASC
+  gcID_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  onBoarded_ASC
+  onBoarded_DESC
+  classification_ASC
+  classification_DESC
+  type_ASC
+  type_DESC
   name_ASC
   name_DESC
 }
 
 type UserPreviousValues {
   id: ID!
+  gcID: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+  onBoarded: Boolean!
+  classification: ClassificationEnum!
+  type: UserTypeEnum!
   name: String!
 }
 
@@ -349,6 +442,20 @@ input UserScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  gcID: ID
+  gcID_not: ID
+  gcID_in: [ID!]
+  gcID_not_in: [ID!]
+  gcID_lt: ID
+  gcID_lte: ID
+  gcID_gt: ID
+  gcID_gte: ID
+  gcID_contains: ID
+  gcID_not_contains: ID
+  gcID_starts_with: ID
+  gcID_not_starts_with: ID
+  gcID_ends_with: ID
+  gcID_not_ends_with: ID
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -365,6 +472,16 @@ input UserScalarWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  onBoarded: Boolean
+  onBoarded_not: Boolean
+  classification: ClassificationEnum
+  classification_not: ClassificationEnum
+  classification_in: [ClassificationEnum!]
+  classification_not_in: [ClassificationEnum!]
+  type: UserTypeEnum
+  type_not: UserTypeEnum
+  type_in: [UserTypeEnum!]
+  type_not_in: [UserTypeEnum!]
   name: String
   name_not: String
   name_in: [String!]
@@ -402,16 +519,35 @@ input UserSubscriptionWhereInput {
   NOT: [UserSubscriptionWhereInput!]
 }
 
+enum UserTypeEnum {
+  UNDEFINED
+  SEEKER
+  RECRUITER
+}
+
 input UserUpdateInput {
+  gcID: ID
+  onBoarded: Boolean
+  classification: ClassificationEnum
+  type: UserTypeEnum
   name: String
+  jobPostings: JobUpdateManyWithoutOwnerInput
   viewed: JobUpdateManyWithoutViewedByInput
 }
 
 input UserUpdateManyDataInput {
+  gcID: ID
+  onBoarded: Boolean
+  classification: ClassificationEnum
+  type: UserTypeEnum
   name: String
 }
 
 input UserUpdateManyMutationInput {
+  gcID: ID
+  onBoarded: Boolean
+  classification: ClassificationEnum
+  type: UserTypeEnum
   name: String
 }
 
@@ -432,13 +568,39 @@ input UserUpdateManyWithWhereNestedInput {
   data: UserUpdateManyDataInput!
 }
 
-input UserUpdateWithoutViewedDataInput {
+input UserUpdateOneRequiredWithoutJobPostingsInput {
+  create: UserCreateWithoutJobPostingsInput
+  update: UserUpdateWithoutJobPostingsDataInput
+  upsert: UserUpsertWithoutJobPostingsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateWithoutJobPostingsDataInput {
+  gcID: ID
+  onBoarded: Boolean
+  classification: ClassificationEnum
+  type: UserTypeEnum
   name: String
+  viewed: JobUpdateManyWithoutViewedByInput
+}
+
+input UserUpdateWithoutViewedDataInput {
+  gcID: ID
+  onBoarded: Boolean
+  classification: ClassificationEnum
+  type: UserTypeEnum
+  name: String
+  jobPostings: JobUpdateManyWithoutOwnerInput
 }
 
 input UserUpdateWithWhereUniqueWithoutViewedInput {
   where: UserWhereUniqueInput!
   data: UserUpdateWithoutViewedDataInput!
+}
+
+input UserUpsertWithoutJobPostingsInput {
+  update: UserUpdateWithoutJobPostingsDataInput!
+  create: UserCreateWithoutJobPostingsInput!
 }
 
 input UserUpsertWithWhereUniqueWithoutViewedInput {
@@ -462,6 +624,20 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  gcID: ID
+  gcID_not: ID
+  gcID_in: [ID!]
+  gcID_not_in: [ID!]
+  gcID_lt: ID
+  gcID_lte: ID
+  gcID_gt: ID
+  gcID_gte: ID
+  gcID_contains: ID
+  gcID_not_contains: ID
+  gcID_starts_with: ID
+  gcID_not_starts_with: ID
+  gcID_ends_with: ID
+  gcID_not_ends_with: ID
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -478,6 +654,16 @@ input UserWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  onBoarded: Boolean
+  onBoarded_not: Boolean
+  classification: ClassificationEnum
+  classification_not: ClassificationEnum
+  classification_in: [ClassificationEnum!]
+  classification_not_in: [ClassificationEnum!]
+  type: UserTypeEnum
+  type_not: UserTypeEnum
+  type_in: [UserTypeEnum!]
+  type_not_in: [UserTypeEnum!]
   name: String
   name_not: String
   name_in: [String!]
@@ -492,6 +678,9 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  jobPostings_every: JobWhereInput
+  jobPostings_some: JobWhereInput
+  jobPostings_none: JobWhereInput
   viewed_every: JobWhereInput
   viewed_some: JobWhereInput
   viewed_none: JobWhereInput
@@ -502,5 +691,6 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  gcID: ID
   name: String
 }

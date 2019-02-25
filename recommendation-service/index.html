@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title>lastfm demo</title>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root" class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Computing similarity of artists using last.fm user listening history</h1>
+        </div> 
+      </div>
+      <div class="row" style="margin-top: 25px;">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          Artist: <input type="text" name="artist" id="artist-input">
+          <button type="button" class="btn btn-primary" onclick="send_message_to_socket(document.getElementById('artist-input').value);">show similar artists</button> <br>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+      <div class="row" style="margin-top: 25px;">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+          <div id="predictions">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Artist</th>
+                  <th scope="col">Similar artists by listening behaviour</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td id="1"></td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td id="2"></td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td id="3"></td>
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td id="4"></td>
+                </tr>
+                <tr>
+                  <th scope="row">5</th>
+                  <td id="5"></td>
+                </tr>
+                <tr>
+                  <th scope="row">6</th>
+                  <td id="6"></td>
+                </tr>
+                <tr>
+                  <th scope="row">7</th>
+                  <td id="7"></td>
+                </tr>
+                <tr>
+                  <th scope="row">8</th>
+                  <td id="8"></td>
+                </tr>
+                <tr>
+                  <th scope="row">9</th>
+                  <td id="9"></td>
+                </tr>
+                <tr>
+                  <th scope="row">10</th>
+                  <td id="10"></td>
+                </tr>
+                <tr>
+                  <th scope="row">11</th>
+                  <td id="11"></td>
+                </tr>
+                <tr>
+                  <th scope="row">12</th>
+                  <td id="12"></td>
+                </tr>
+                <tr>
+                  <th scope="row">13</th>
+                  <td id="13"></td>
+                </tr>
+                <tr>
+                  <th scope="row">14</th>
+                  <td id="14"></td>
+                </tr>
+                <tr>
+                  <th scope="row">15</th>
+                  <td id="15"></td>
+                </tr>
+                <tr>
+                  <th scope="row">16</th>
+                  <td id="16"></td>
+                </tr>
+                <tr>
+                  <th scope="row">17</th>
+                  <td id="17"></td>
+                </tr>
+                <tr>
+                  <th scope="row">18</th>
+                  <td id="18"></td>
+                </tr>
+                <tr>
+                  <th scope="row">19</th>
+                  <td id="19"></td>
+                </tr>
+                <tr>
+                  <th scope="row">20</th>
+                  <td id="20"></td>
+                </tr>
+                <tr>
+                  <th scope="row">21</th>
+                  <td id="21"></td>
+                </tr>
+                <tr>
+                  <th scope="row">22</th>
+                  <td id="22"></td>
+                </tr>
+                <tr>
+                  <th scope="row">23</th>
+                  <td id="23"></td>
+                </tr>
+                <tr>
+                  <th scope="row">24</th>
+                  <td id="24"></td>
+                </tr>
+                <tr>
+                  <th scope="row">25</th>
+                  <td id="25"></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/socket.js"></script>
+</html>

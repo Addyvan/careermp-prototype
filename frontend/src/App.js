@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import {
-  NavItem,
   Button
 } from 'reactstrap';
 
@@ -48,29 +47,34 @@ class App extends React.Component {
       <Router >
         <div className="flex-grow-1" style={{height:"100%"}}>
           <NavBar>
-            <NavItem className="mr-2">
-                <Login
-                  oidcConfig={oidcConfig}
-                  onUserLoaded={doLogin}
-                  onUserFetched={doLogin}
-                  onLogoutClick={(e, oidc) => {
-                    oidc.logout();
-                    doLogout();
-                  }}
-                >
-                  {({ onClick }) => {
-                    return (
-                    <Button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onClick(e);
-                      }}
-                    >
-                      {this.state.name || 'Login'}
-                    </Button>
-                  )}}
-                </Login>
-              </NavItem>
+              {
+                (this.state.name) ?
+                "Hello " + this.state.name + "  ":
+                ""
+              }
+              <Login
+                oidcConfig={oidcConfig}
+                onUserLoaded={doLogin}
+                onUserFetched={doLogin}
+                onLogoutClick={(e, oidc) => {
+                  oidc.logout();
+                  doLogout();
+                }}
+              >
+                {({ onClick }) => {
+                  return (
+                  <Button
+                    color="info"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onClick(e);
+                    }}
+                  >
+                    {(this.state.name ? "Logout" : "Login")}
+                  </Button>
+                )}}
+              </Login>
+            
           </NavBar>
           {
             routes.map((route, index) => {
@@ -118,8 +122,11 @@ const mapStToProps = ({ showError }) => {
   return({ showError: showError || [] })
 };
 
+
+
 const mapDispToProps = dispatch => ({
   onLogin: profile => {
+
     return(dispatch(loginAction(profile)))
   },
   onLogout: () => dispatch(logoutAction()),

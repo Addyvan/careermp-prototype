@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Button } from "reactstrap";
 
 import { I18n } from "react-i18next";
 
@@ -17,8 +17,12 @@ class NavBar extends React.Component {
               </Col>
               <Col lg="9" md="8" sm="12" style={{padding: "5px"}} >
                 <Row>
-                  <Col lg="11" md="11" sm="10">
+                  <Col lg="7" md="7" sm="5" />
+                  <Col lg="3" md="3" sm="3">
                     {this.props.children}
+                  </Col>
+                  <Col lg="1" md="1" sm="2" >
+                    <Button href="/stats">Stats</Button>
                   </Col>
                   <Col lg="1" md="1" sm="2" >
                     <LanguageToggle i18n={ i18n }/>

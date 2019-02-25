@@ -10,13 +10,17 @@ import Search from "../components/feed/Search";
 import JobFeed from "../components/feed/JobFeed";
 
 class Feed extends React.Component {
+
+  componentDidMount() {
+    document.title = 'Career Marketplace';
+  }
   
   render() {
     return(
       <div id="feed">
         <Row id="top-bar" className="career-navbar">
           <Col lg="4" md="4">
-            <Filters />
+            <Filters gcID={(this.props.user) ? this.props.user.profile.sub : ""}/>
           </Col>
           <Col lg="4" md="4" /> 
           <Col lg="4" md="4">
@@ -30,7 +34,7 @@ class Feed extends React.Component {
               }
               <b>Because you viewed</b>
               <hr />
-              <JobFeed job_ids={["cjs6heaf7001q0885xkzkbtub", "cjsap8ooy001v08859fd5em1p"]} />
+              <JobFeed job_ids={[]} />
             </div>
           </Col>
           <Col lg="6" md="6" style={{paddingRight: "0px"}}>
@@ -39,7 +43,7 @@ class Feed extends React.Component {
               }
               <b>Based on your career information</b>
               <hr />
-              <JobFeed job_ids={["cjs6heaf7001q0885xkzkbtub", "cjsap8ooy001v08859fd5em1p"]} />
+              <JobFeed job_ids={[]} />
             </div>
           </Col>
         </Row>

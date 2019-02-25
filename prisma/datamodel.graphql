@@ -1,8 +1,11 @@
 type User {
   id: ID! @unique
+  gcID: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
-  onboardingStage: Int!
+  onBoarded: Boolean!
+  classification: ClassificationEnum!
+  type: UserTypeEnum!
   name: String! @unique
   jobPostings: [Job!]! @relation(name: "JobPostingOwner")
   viewed: [Job!]! @relation(name: "ViewedBy")
@@ -15,4 +18,18 @@ type Job {
   owner: User! @relation(name: "JobPostingOwner")
   name: String! @unique
   viewedBy: [User!]! @relation(name: "ViewedBy")
+}
+
+enum UserTypeEnum {
+  UNDEFINED
+  SEEKER
+  RECRUITER
+}
+
+enum ClassificationEnum {
+  UNDEFINED
+  EC01
+  EC02
+  EC03
+  EC04
 }

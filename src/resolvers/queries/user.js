@@ -3,7 +3,7 @@ function user(_, args, context, info) {
       {
         where:{
           id: args.id,
-          name: args.name    
+          gcID: args.gcID 
         },
         skip: args.skip,
         first: args.first,        

@@ -8,6 +8,8 @@ import Job from "./views/Job";
 import JobOwner from "./views/JobOwner";
 import RecruiterFeed from "./views/RecruiterFeed";
 import OnBoarding from "./views/OnBoarding";
+import SavedJobs from "./views/SavedJobs";
+import Stats from "./views/Stats";
 
 export default [
   {
@@ -32,6 +34,11 @@ export default [
     component: RecruiterFeed
   },
   {
+    path: "/savedjobs/:id",
+    layout: DefaultLayout,
+    component: SavedJobs
+  },
+  {
     path: "/u/:id",
     layout: DefaultLayout,
     component: Job
@@ -40,5 +47,10 @@ export default [
     path: "/r/:id",
     layout: DefaultLayout,
     component: JobOwner
+  },
+  {
+    path: "/stats",
+    layout: DefaultLayout,
+    component: Stats
   }
 ];
