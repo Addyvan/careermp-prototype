@@ -22,7 +22,7 @@ class NavBar extends React.Component {
                     {this.props.children}
                   </Col>
                   <Col lg="1" md="1" sm="2" >
-                    <Button href="/stats">Stats</Button>
+                    <Button href="/stats" color="link"> Stats</Button>
                   </Col>
                   <Col lg="1" md="1" sm="2" >
                     <LanguageToggle i18n={ i18n }/>

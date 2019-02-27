@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 
 import gql from "graphql-tag";
-import {Query} from "react-apollo";
+import { Query } from "react-apollo";
 import { Mutation } from "react-apollo";
 
 import { Spinner } from "reactstrap";

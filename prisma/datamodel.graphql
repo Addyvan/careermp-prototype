@@ -18,6 +18,9 @@ type Job {
   owner: User! @relation(name: "JobPostingOwner")
   name: String! @unique
   viewedBy: [User!]! @relation(name: "ViewedBy")
+  department: DepartmentEnum # make required later
+  classification: ClassificationEnum # make required later
+  location: LocationEnum # make required later
 }
 
 enum UserTypeEnum {
@@ -32,4 +35,18 @@ enum ClassificationEnum {
   EC02
   EC03
   EC04
+}
+
+enum DepartmentEnum {
+  TBS
+  DND
+  PSPC
+  OCHRO
+}
+
+enum LocationEnum {
+  NCR
+  ONTARIO
+  QUEBEC
+  OTHER
 }

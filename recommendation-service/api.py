@@ -1,44 +1,29 @@
 import tornado.ioloop
 import tornado.web
-import tornado.websocket
 import pandas as pd
-import json
 
-class EchoWebSocket(tornado.websocket.WebSocketHandler):
-    
-    def __init__(self, application, request, **kwargs):
-        super(tornado.websocket.WebSocketHandler, self).__init__(application, request, **kwargs)
-        self.ws_connection = None
-        self.close_code = None
-        self.close_reason = None
-        self.stream = None
-        self._on_close_called = False
+class UserCollaborativeHandler(tornado.web.RequestHandler):
 
-        self.similarity_matrix = pd.read_csv("similarity_matrix.csv")
-        self.similarity_matrix = self.similarity_matrix.set_index("artist")
+    def __init__(self, *request, **kwargs):
+        super(UserCollaborativeHandler,self).__init__(request[0], request[1])
+        self.user_recommendations = pd.read_csv("user_recommendations.csv").set_index("user").transpose()
 
-    def check_origin(self, origin):
-        return True
+    def get(self, user):
+        self.write( {"recommendations": self.user_recommendations[int(user)].to_json()} )
 
-    def open(self):
-        print("WebSocket opened")
+class JobCollaborativeHandler(tornado.web.RequestHandler):
 
-    def on_message(self, message):
+    def __init__(self, *request, **kwargs):
+        super(UserCollaborativeHandler,self).__init__(request[0], request[1])
+        self.similarity_matrix = pd.read_csv("similarity_matrix.csv").set_index("job")
 
-        if message in self.similarity_matrix:
-            print(u"Getting similar artists for: " + message)
-            prediction = self.similarity_matrix.loc[message].nlargest(25)
-            print(prediction)
-            self.write_message(prediction.to_json())
-        else:
-            self.write_message("error: artist not in dataset")
-
-    def on_close(self):
-        print("WebSocket closed")
+    def get(self, job_id):
+        self.write( {"recommendations": self.similarity_matrix.loc[job_id].nlargest(25)} )
 
 def make_app():
     return tornado.web.Application([
-        (r"/", EchoWebSocket),
+        (r"/(?P<user>\w+)", UserCollaborativeHandler),
+        (r"/(?P<job_id>\w+)", JobCollaborativeHandler)
     ])
 
 if __name__ == "__main__":

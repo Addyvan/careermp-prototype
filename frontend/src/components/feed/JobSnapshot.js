@@ -8,6 +8,7 @@ import {
 
 class JobSnapshot extends React.Component {
   render() {
+    console.log(this.props);
     return(
       <a style={{color: "black", textDecoration: "none"}} href={"/j/" + this.props.data.job.id}>
         <Card style={{margin: "20px", padding: "5px"}} >

@@ -15,6 +15,9 @@ const JOB_QUERY = gql`
           viewedBy {
             id
           }
+          department
+          classification
+          location
         }
     }
 `;

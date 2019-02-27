@@ -19,7 +19,7 @@ const server = new ApolloServer({
       typeDefs: './src/generated/prisma.graphql',
       endpoint: process.env.PRISMA_HOST,
       debug: true,
-    }),
+    })
   }),
 });
 

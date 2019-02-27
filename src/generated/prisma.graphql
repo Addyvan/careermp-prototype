@@ -20,6 +20,13 @@ enum ClassificationEnum {
 
 scalar DateTime
 
+enum DepartmentEnum {
+  TBS
+  DND
+  PSPC
+  OCHRO
+}
+
 type Job {
   id: ID!
   createdAt: DateTime!
@@ -27,6 +34,9 @@ type Job {
   owner: User!
   name: String!
   viewedBy(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  department: DepartmentEnum
+  classification: ClassificationEnum
+  location: LocationEnum
 }
 
 type JobConnection {
@@ -39,6 +49,9 @@ input JobCreateInput {
   owner: UserCreateOneWithoutJobPostingsInput!
   name: String!
   viewedBy: UserCreateManyWithoutViewedInput
+  department: DepartmentEnum
+  classification: ClassificationEnum
+  location: LocationEnum
 }
 
 input JobCreateManyWithoutOwnerInput {
@@ -54,11 +67,17 @@ input JobCreateManyWithoutViewedByInput {
 input JobCreateWithoutOwnerInput {
   name: String!
   viewedBy: UserCreateManyWithoutViewedInput
+  department: DepartmentEnum
+  classification: ClassificationEnum
+  location: LocationEnum
 }
 
 input JobCreateWithoutViewedByInput {
   owner: UserCreateOneWithoutJobPostingsInput!
   name: String!
+  department: DepartmentEnum
+  classification: ClassificationEnum
+  location: LocationEnum
 }
 
 type JobEdge {
@@ -75,6 +94,12 @@ enum JobOrderByInput {
   updatedAt_DESC
   name_ASC
   name_DESC
+  department_ASC
+  department_DESC
+  classification_ASC
+  classification_DESC
+  location_ASC
+  location_DESC
 }
 
 type JobPreviousValues {
@@ -82,6 +107,9 @@ type JobPreviousValues {
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String!
+  department: DepartmentEnum
+  classification: ClassificationEnum
+  location: LocationEnum
 }
 
 input JobScalarWhereInput {
@@ -129,6 +157,18 @@ input JobScalarWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  department: DepartmentEnum
+  department_not: DepartmentEnum
+  department_in: [DepartmentEnum!]
+  department_not_in: [DepartmentEnum!]
+  classification: ClassificationEnum
+  classification_not: ClassificationEnum
+  classification_in: [ClassificationEnum!]
+  classification_not_in: [ClassificationEnum!]
+  location: LocationEnum
+  location_not: LocationEnum
+  location_in: [LocationEnum!]
+  location_not_in: [LocationEnum!]
   AND: [JobScalarWhereInput!]
   OR: [JobScalarWhereInput!]
   NOT: [JobScalarWhereInput!]
@@ -156,14 +196,23 @@ input JobUpdateInput {
   owner: UserUpdateOneRequiredWithoutJobPostingsInput
   name: String
   viewedBy: UserUpdateManyWithoutViewedInput
+  department: DepartmentEnum
+  classification: ClassificationEnum
+  location: LocationEnum
 }
 
 input JobUpdateManyDataInput {
   name: String
+  department: DepartmentEnum
+  classification: ClassificationEnum
+  location: LocationEnum
 }
 
 input JobUpdateManyMutationInput {
   name: String
+  department: DepartmentEnum
+  classification: ClassificationEnum
+  location: LocationEnum
 }
 
 input JobUpdateManyWithoutOwnerInput {
@@ -198,11 +247,17 @@ input JobUpdateManyWithWhereNestedInput {
 input JobUpdateWithoutOwnerDataInput {
   name: String
   viewedBy: UserUpdateManyWithoutViewedInput
+  department: DepartmentEnum
+  classification: ClassificationEnum
+  location: LocationEnum
 }
 
 input JobUpdateWithoutViewedByDataInput {
   owner: UserUpdateOneRequiredWithoutJobPostingsInput
   name: String
+  department: DepartmentEnum
+  classification: ClassificationEnum
+  location: LocationEnum
 }
 
 input JobUpdateWithWhereUniqueWithoutOwnerInput {
@@ -276,6 +331,18 @@ input JobWhereInput {
   viewedBy_every: UserWhereInput
   viewedBy_some: UserWhereInput
   viewedBy_none: UserWhereInput
+  department: DepartmentEnum
+  department_not: DepartmentEnum
+  department_in: [DepartmentEnum!]
+  department_not_in: [DepartmentEnum!]
+  classification: ClassificationEnum
+  classification_not: ClassificationEnum
+  classification_in: [ClassificationEnum!]
+  classification_not_in: [ClassificationEnum!]
+  location: LocationEnum
+  location_not: LocationEnum
+  location_in: [LocationEnum!]
+  location_not_in: [LocationEnum!]
   AND: [JobWhereInput!]
   OR: [JobWhereInput!]
   NOT: [JobWhereInput!]
@@ -284,6 +351,13 @@ input JobWhereInput {
 input JobWhereUniqueInput {
   id: ID
   name: String
+}
+
+enum LocationEnum {
+  NCR
+  ONTARIO
+  QUEBEC
+  OTHER
 }
 
 scalar Long

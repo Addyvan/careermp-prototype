@@ -1,12 +1,14 @@
 function createJob(_, args, context, info) {
-  console.log(args.owner);
   var createJobData = {
       name: args.job.name,
       owner: {
         connect: {
           gcID: args.job.owner.gcID
         }
-      }
+      },
+      department: args.job.department,
+      classification: args.job.classification,
+      location: args.job.location
   };
 
   return context.prisma.mutation.createJob({
