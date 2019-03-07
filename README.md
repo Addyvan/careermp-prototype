@@ -13,6 +13,7 @@ yarn prisma deploy
 ```
 
 1. Set up the prisma + postgres + apollo server 2
+
 a) Deploy the datamodel to the running prisma container
 ```
 npm install
