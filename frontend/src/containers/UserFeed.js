@@ -7,20 +7,15 @@ import {
   Button
 } from "reactstrap";
 
-import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 import Filters from "../components/feed/Filters";
 import Search from "../components/feed/Search";
 import JobFeed from "../components/feed/JobFeed";
 
-const COLLABORATIVE_RECOMMENDATIONS = gql`
-  query GetRecommendations($gcID: String!) {
-    collaborativeRecommendations( gcID: $gcID ) {
-      id
-    }
-  }
-`;
+import {
+  GET_COLLABORATIVE_RECOMMENDATIONS
+} from "../gql/recommendations";
 
 class Feed extends React.Component {
 
@@ -51,25 +46,26 @@ class Feed extends React.Component {
               <b>Based off your viewing history</b>
               <hr />
               {(this.props.user) ? 
-                <Query query={COLLABORATIVE_RECOMMENDATIONS} variables={{gcID: this.props.user.profile.sub.toString()}}>
+                <Query query={GET_COLLABORATIVE_RECOMMENDATIONS} variables={{gcID: this.props.user.profile.sub.toString()}}>
                   {
                     ({ loading, error, data }) => {
                       if (loading) return (<Spinner color="primary" />);
                       if (error) { 
-                        console.log(this.props.user.profile.sub);
-                        console.log(error); 
+                       
                         return null; 
                       }
                       if (data) {
-                        console.log(data);
+                        
                         var ids = [];
                         for (var i = 0; i < data.collaborativeRecommendations.length; i++ ) {
                           ids.push(data.collaborativeRecommendations[i].id);
                         }
+
                         console.log(ids);
+                        
                         return(<JobFeed job_ids={ids} />);
                       } else {
-                        console.log(this.props.user.profile.sub);
+                        
                         return(null);
                       }
                     }
@@ -85,6 +81,7 @@ class Feed extends React.Component {
               }
               <b>Based on your career information</b>
               <hr />
+              <p>Not implemented</p>
               <JobFeed job_ids={[]} />
             </div>
           </Col>

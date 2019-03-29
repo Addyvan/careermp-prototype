@@ -9,7 +9,7 @@ import {
   DropdownToggle
 } from "reactstrap";
 
-class SmartInput extends React.Component {
+class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -19,7 +19,6 @@ class SmartInput extends React.Component {
       results: [],
       dropdownOpen: false,
     }
-    this.handleChange = this.handleChange.bind(this);
   }
 
   toggle() {
@@ -43,8 +42,6 @@ class SmartInput extends React.Component {
     const query = event.target.value;
     const results = this.getSearchResults(query);
 
-    this.handleChange(query);
-
     if (results) {
       this.setState({
         results: results.slice(0, 5),
@@ -60,13 +57,9 @@ class SmartInput extends React.Component {
     }
   }
 
-  handleChange(text) {
-    this.props.onChange(Object.keys(this.props.searchValues).find(key => this.props.searchValues[key] === text));
-  }
-
   render() {
     return(
-      <Dropdown onBlur={this.onBlur} toggle={this.toggle} isOpen={this.state.dropdownOpen} style={{width: "100%", marginTop: "15px", marginBottom: "15px"}}>
+      <Dropdown onBlur={this.onBlur} toggle={this.toggle} isOpen={this.state.dropdownOpen}>
         <DropdownToggle color="" style={{width: "100%"}}>
           <Label for={"search-" + this.props.section} className="sr-only">
             {this.props.placeholder}
@@ -74,11 +67,11 @@ class SmartInput extends React.Component {
           <Input
             tag={Input}
             type="text"
-            autoComplete="off"
-            value={this.state.query}
+            id={"search-" + this.props.section}
             onChange={this.search}
             placeholder={this.props.placeholder}
             aria-owns={"results-" + this.props.section}
+            autoComplete="off"
           />
         </DropdownToggle>
 
@@ -90,10 +83,7 @@ class SmartInput extends React.Component {
               }
             </span>
             {this.state.results.map(result =>
-              <DropdownItem key={result.ref} onClick={() => {
-                this.handleChange(this.props.searchValues[result.ref]);
-                this.setState({query: this.props.searchValues[result.ref]});
-              }}>
+              <DropdownItem key={result.ref} href={"/j/" + result.ref}>
                 {this.props.searchValues[result.ref]}
               </DropdownItem>
             )}
@@ -111,4 +101,4 @@ class SmartInput extends React.Component {
   }
 }
 
-export default SmartInput;
+export default SearchBar;

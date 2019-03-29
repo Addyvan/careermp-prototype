@@ -6,18 +6,18 @@ import {
   Button
 } from 'reactstrap';
 
-import NavBar from "./components/layout/NavBar";
+import NavBar from "../components/layout/NavBar";
 
-import routes from "./routes";
+import routes from "../routes";
 
 import { connect } from 'react-redux';
 import Login from '@gctools-components/gc-login';
-import { loginAction, logoutAction, clearErrorAction } from './store';
+import { loginAction, logoutAction, clearErrorAction } from '../store';
 
-import oidcConfig from './oidcConfig.dev';
+import oidcConfig from '../oidcConfig.dev';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./utils/oadw-dash.scss";
+import "../utils/oadw-dash.scss";
 
 class App extends React.Component {
 
@@ -126,7 +126,7 @@ const mapStToProps = ({ showError }) => {
 
 const mapDispToProps = dispatch => ({
   onLogin: profile => {
-
+    console.log(profile);
     return(dispatch(loginAction(profile)))
   },
   onLogout: () => dispatch(logoutAction()),

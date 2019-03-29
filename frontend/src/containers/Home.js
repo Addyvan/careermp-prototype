@@ -7,15 +7,9 @@ import { Mutation } from "react-apollo";
 
 import { Spinner } from "reactstrap";
 
-const USER_QUERY = gql`
-    query GetUser($gcID: String) {
-        user( gcID: $gcID ) {
-          id
-          onBoarded
-          type
-        }
-    }
-`;
+import {
+  GET_USER_QUERY
+} from "../gql/user";
 
 const CREATE_USER = gql`
   mutation CreateUser($gcID: String!, $name: String!) {
@@ -41,7 +35,7 @@ class Home extends Component {
   render() {
     if (this.props.user) {
       return(
-        <Query query={USER_QUERY} variables={{gcID: this.props.user.profile.sub}}>
+        <Query query={GET_USER_QUERY} variables={{gcID: this.props.user.profile.sub}}>
           {
             ({ loading, error, data }) => {
               if (loading) return (<Spinner color="primary" />);

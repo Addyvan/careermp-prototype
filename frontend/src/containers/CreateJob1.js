@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 
 import gql from "graphql-tag";
-import { Query } from "react-apollo";
+
 import { Mutation } from "react-apollo";
 
 import {
@@ -25,16 +25,6 @@ import {
   classificationIndex,
   classificationSearchValues
 } from "../components/createjob/SmartSearchClassification";
-
-const JOB_STATS_QUERY = gql`
-    query GetJobStats($gcID: String) {
-        jobs( gcID: $gcID ) {
-          id
-          onBoarded
-          type
-        }
-    }
-`;
 
 const CREATE_JOB = gql`
   mutation CreateJob($gcID: ID!, $name: String!, $department: DepartmentEnum!, $classification: ClassificationEnum!, $location: LocationEnum!) {
@@ -107,6 +97,7 @@ class CreateJob1 extends Component {
                     <Col lg="3" md="3" />
                     <Col lg="6" md="6"  style={{paddingLeft: "25px", paddingRight: "25px"}}>
                       <Input 
+                        autoComplete="off"
                         tag={Input}
                         type="text"
                         id="name"
@@ -121,7 +112,7 @@ class CreateJob1 extends Component {
                   <Row>
                     <Col lg="3" md="3" />
                     <Col lg="6" md="6">
-                      <SmartInput 
+                      <SmartInput
                         placeholder="Department"
                         section="desktop"
                         searchIndex={departmentIndex}

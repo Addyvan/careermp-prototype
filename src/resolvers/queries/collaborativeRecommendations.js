@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 async function collaborativeRecommendations(_, args, context, info) {
-  console.log("test");
+  
   var recommended_jobs = await new Promise( ( resolve, reject ) => {
     fetch("http://localhost:8888/" + args.gcID)
     .then(res => res.text())
@@ -14,8 +14,7 @@ async function collaborativeRecommendations(_, args, context, info) {
     job_ids.push(key);
   }
 
-
-  return context.prisma.query.jobs(
+  var recommendations = await context.prisma.query.jobs(
     {
       where:{
         id_in: job_ids 
@@ -25,6 +24,20 @@ async function collaborativeRecommendations(_, args, context, info) {
     },
     info
   );
+  
+  if (recommendations) {
+    if (recommendations.length < 1) {
+      return context.prisma.query.jobs(
+        {
+          skip: args.skip,
+          first: 3,
+        },
+        info
+      );
+    }
+  }
+
+  return recommendations;
 
 }
 

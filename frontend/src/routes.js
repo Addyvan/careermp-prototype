@@ -1,17 +1,17 @@
 // Layout Types
 import DefaultLayout from "./layouts/Default";
 
-// Route Views
-import Home from "./views/Home";
-import UserFeed from "./views/UserFeed";
-import Job from "./views/Job";
-import JobOwner from "./views/JobOwner";
-import RecruiterFeed from "./views/RecruiterFeed";
-import OnBoarding from "./views/OnBoarding";
-import SavedJobs from "./views/SavedJobs";
-import Stats from "./views/Stats";
-import CreateJob1 from "./views/CreateJob1";
-import CreateJob2 from "./views/CreateJob2";
+// Route containers
+import Home from "./containers/Home";
+import UserFeed from "./containers/UserFeed";
+import Job from "./containers/Job";
+import JobOwner from "./containers/JobOwner";
+import RecruiterFeed from "./containers/RecruiterFeed";
+import OnBoarding from "./containers/OnBoarding";
+import SavedJobs from "./containers/SavedJobs";
+import Stats from "./containers/Stats";
+import CreateJob1 from "./containers/CreateJob1";
+import CreateJob2 from "./containers/CreateJob2";
 
 export default [
   {
