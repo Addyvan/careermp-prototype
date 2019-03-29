@@ -1,14 +1,41 @@
 # careermp-prototype
 
-## To-do
+Before starting make sure no other containers are running on port 4466 (to check run: `docker ps`).
 
-Project setup:
-- Outline what features this prototype has, will have, and does not have
-- Add gctools eslint and start writing lint compliant code
-- Re-organize files and comment unclear code
-- Add prop-types to everything
+To run in dev 3 services must run simulatenously (in addition to the docker containers):
 
-Features:
-- Add a data seeder that creates dummy data associated to 50 users with 25-ish jobs. (Data has some logic to it)
-- Show stats when creating a job (/containers/CreateJob1)
-- Make smart inputs utilize queries to dynamically build selections bsed off the enums
+Note if you already have a prisma container running you can do and skip to 1.b: 
+```
+npm install
+cd prisma
+yarn prisma reset
+yarn prisma deploy
+```
+
+1. Set up the prisma + postgres + apollo server 2
+
+a) Deploy the datamodel to the running prisma container
+```
+npm install
+docker compose up
+cd prisma
+yarn prisma deploy
+```
+b) Run apollo server
+```
+node ./src/index
+```
+
+2. Set up the python api which is currently not finished but will cause errors if not propped up!
+```
+cd recommendation-service
+pip install tornado # assumes pandas is already installed
+python api.py
+```
+
+3. Run the react frontend app
+```
+cd frontend
+npm install
+npm start
+```
